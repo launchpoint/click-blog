@@ -1,0 +1,26 @@
+.panel
+  %a{:href=>view_blog_thread_url($article->blog_thread->name)} =se("Main")
+  +" | "
+  %a{:href=>view_blog_all_thread_url($article->blog_thread->name)} =se("All")
+  -if($show_rss_feed_link)
+    %div{:style=>"text-align: right"}
+      %a{:href=>blog_rss_url($bt->name)}
+        =image_thumb(BLOG_VPATH."/assets/images/rss.png", 'width', 25, 'height', 25)
+  -else
+    %br
+    %br
+  .article
+    %table.header
+      %tr
+        %td.title
+          +$article->title
+        %td.controls
+          -if($current_user->is('blogger'))
+            =button_to('Edit', edit_blog_article_url($article))
+            -if($article->published_at)
+              =button_to('Unpublish', set_blog_article_publish_state_url($article, 'draft'))
+            -else
+              =button_to('Publish', set_blog_article_publish_state_url($article, 'published'))
+    .body
+      =$article->body_html
+    .footer

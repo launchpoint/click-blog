@@ -1,0 +1,25 @@
+.panel
+  .title
+    =se("Edit")
+    +$article->title
+  .body
+    =form_for($article)
+    %table
+      %tr
+        %td =se("Title")
+        %td =text_field('title')
+      %tr
+        %td =se("Input Type")
+        %td =select_tag('article[type]', $types, $article->type)
+      %tr
+        %td =se("Excerpt")
+        %td
+          =textarea_field('excerpt', 'class', 'expanding')
+      %tr
+        %td =se("Content")
+        %td
+          =textarea_field('body', 'class', 'expanding')
+      %tr
+        %td
+        %td =submit_tag('Save')
+    =end_form_for()

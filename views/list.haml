@@ -1,0 +1,15 @@
+.panel
+  %a{:href=>view_blog_thread_url($bt->name)} =se("Main")
+  +" | "
+  %a{:href=>view_blog_all_thread_url($bt->name)} =se("All")
+  -if($show_rss_feed_link)
+    %div{:style=>"text-align: right"}
+      %a{:href=>blog_rss_url($bt->name)}
+        =image_thumb(BLOG_VPATH."/assets/images/rss.png", 'width', 25, 'height', 25)
+  -else
+    %br
+    %br
+  -if($current_user->is('blogger'))
+    =button_to('New Article', new_blog_article_url($bt->name))
+  -foreach($articles as $article)
+    -event('blog_summary', array('article'=>$article, 'bt'=>$bt))

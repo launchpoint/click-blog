@@ -1,0 +1,5 @@
+.article
+  %table.header
+    %tr
+      %td{:style=>"font-size:12px;", :class=>"title ".( ($article->published_at) ? '' : 'unpublished' )}
+        %a{:href=>view_blog_article_url($article)} +$article->title

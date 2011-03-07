@@ -1,0 +1,20 @@
+.article
+  %table.header
+    %tr
+      %td{:class=>"title ".( ($article->published_at) ? '' : 'unpublished' )}
+        %a{:href=>view_blog_article_url($article)} +$article->title
+      %td.controls
+        -if($current_user->is('blogger'))
+          =button_to('Edit', edit_blog_article_url($article))
+          -if($article->published_at)
+            =button_to('Unpublish', set_blog_article_publish_state_url($article, 'draft'))
+          -else
+            =button_to('Publish', set_blog_article_publish_state_url($article, 'published'))
+  .excerpt
+    =$article->excerpt_html
+  .footer
+    -if ($article->published_at)
+      =se("Posted")
+      =ago($article->published_at)
+    -else
+      =se("Unpublished")
